@@ -3,22 +3,31 @@
     <form v-on:submit.prevent="stockInfo">
       <label for="symbol">Stock Symbol: </label>
       <input type="text" name="symbol" id="symbol" v-model="stockSymbol" />
-      <button>Submit</button>
+      <button id="button" v-on:click=showQuoteWithClick>Submit</button>
     </form>
-    <div>
-      <p>Symbol: {{ globalQuote.symbol }}</p>
-      <p>Open: {{ globalQuote.open }}</p>
-      <p>High: {{ globalQuote.high }}</p>
-      <p>Low: {{ globalQuote.low }}</p>
-      <p>Price: {{ globalQuote.price }}</p>
-      <p>Volume: {{ globalQuote.volume }}</p>
-      <p>Latest Trading Day: {{ globalQuote.latestTradingDay }}</p>
-      <p>Previous Close: {{ globalQuote.previousClose }}</p>
-      <p>Change: {{ globalQuote.change }}</p>
-      <p>Change Percent: {{ globalQuote.percentageChange }}</p>
-    </div>
-    <!-- <div>{{globalQuote}}</div> -->
+    <td class="global-quote" v-show=showQuote>
+      <tr>Symbol: {{ globalQuote.symbol }}</tr>
+      <tr>Open: {{ globalQuote.open }}</tr>
+      <tr>High: {{ globalQuote.high }}</tr>
+      <tr>Low: {{ globalQuote.low }}</tr>
+      <tr>Price: {{ globalQuote.price }}</tr>
+      <tr>Volume: {{ globalQuote.volume }}</tr>
+      <tr>Latest Trading Day: {{ globalQuote.latestTradingDay }}</tr>
+      <tr>Previous Close: {{ globalQuote.previousClose }}</tr>
+      <tr>Change: {{ globalQuote.change }}</tr>
+      <tr>Change Percent: {{ globalQuote.percentageChange }}</tr>
+  </td>
   </div>
+  <form v-on:submit.prevent="stockInfo">
+      <label for="symbol">Entry Price: </label>
+      <input type="text" name="price" id="price" v-model="entryPrice" />
+      <label for="symbol">Position Size: </label>
+      <input type="text" name="price" id="price" v-model="positionSize" />
+      <label for="symbol">Risk/Reward Ratio 1: </label>
+      <input type="text" name="ratio" id="ratio" v-model="riskRewardRatio" />
+      <button id="button" v-on:click=showQuoteWithClick>Calculate</button>
+    </form>
+ 
 </template>
 
 <script>
@@ -27,6 +36,10 @@ import authService from "./services/AuthService";
 export default {
   data() {
     return {
+      entryPrice: 0,
+      positionSize: 0,
+      riskRewardRatio: 0,
+      showQuote: false,
       stockSymbol: "",
       globalQuote: {
         symbol: "",
@@ -61,7 +74,18 @@ export default {
         console.log(this.globalQuote);
       });
     },
+    showQuoteWithClick(){
+      this.showQuote=true;
+    }
   },
+
+  computed: {
+    calculateProfitTarget(){
+      let profitTarget = 0;
+      return profitTarget;
+    }
+  }
+
 };
 </script>
 
@@ -70,16 +94,27 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* vh stands for viewport height */
+  height: 100vh; /* vh stands for viewport height */
 }
 
-.stock-table {
-  background-color: #ffffff;
+.global-quote {
+  background-color: #50C878	;
   border-collapse: collapse;
-  margin: 25px 0;
-  font-size: 0.9em;
-  min-width: 400px;
-  overflow: hidden;
-  text-align: left;
+  padding: 10px 10px 10px 10px;
+  margin-left: 10px;
+  border-radius: 10px;
+
 }
+
+#button {
+  padding-right: 10px;
+}
+
+td{
+  font-family: Arial, Helvetica, sans-serif;
+}
+div{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 </style>
