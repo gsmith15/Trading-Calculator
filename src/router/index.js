@@ -2,7 +2,7 @@ import { createRouter as createRouter, createWebHistory } from 'vue-router'
 import { useStore } from 'vuex'
 
 // Import components
-//import StockView from '../views/StockView.vue'
+import StockView from '../views/StockView.vue'
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -13,14 +13,14 @@ import { useStore } from 'vuex'
  */
 const routes = [
 
-  // {
-  //   path: "/",
-  //   name: "stock-view",
-  //   component: StockView,
-  //   meta: {
-  //     requiresAuth: false
-  //   }
-  // }
+  {
+    path: "/",
+    name: "stock-view",
+    component: StockView,
+    meta: {
+      requiresAuth: false
+    }
+  }
 
 ];
 
